@@ -52,17 +52,27 @@ const mostFrequent = mostFrqElm([3, 5, 2, 1, 1, 1, 4, 5]);
 // Task 4: Create a function that takes a sorted array of numbers and a target value as input. The function should find two numbers in the array that add up to the target value. Return an array containing the indices of the two numbers.
 //  Example Input: ([1, 3, 6, 8, 11, 15], 9) Example Output: [1, 2] (numbers at indices 1 and 2: 3 + 6 = 9)
 
-const sumOfTargetedNum = (arr, target) => {
-  let sum = 0;
-  let targetedOutput = [];
-  const targetedNum = arr.map((num) => {
-    sum += num;
-    targetedOutput.push(num);
-    if (sum == target) return;
-  });
-};
+function findTwoNumbersAddingToTarget(array, target) {
+  const sortedArray = array.sort((a, b) => a - b);
+  let left = 0;
+  let right = sortedArray.length - 1;
 
-sumOfTargetedNum([1, 3, 6, 8, 11, 15], 9);
+  while (left < right) {
+    const sum = sortedArray[left] + sortedArray[right];
+
+    if (sum === target) {
+      return [left, right];
+    } else if (sum < target) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+  return [];
+}
+
+const indices = findTwoNumbersAddingToTarget([2, 3, 6, 8, 11, 15], 9);
+console.log(indices);
 
 // Task 5: Implement a simple JavaScript calculator. The calculator should take two numbers and an operator (+, -, *, /) as input and return the result of the operation.
 const calculator = (num1, operator, num2) => {
@@ -110,4 +120,3 @@ const secondSmallestNumber = (nums) => {
 };
 
 const smallNum = secondSmallestNumber([34, 42, 6, 6, 6, 7]);
-console.log(smallNum);
